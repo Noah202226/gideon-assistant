@@ -16,12 +16,12 @@ const StackLayout = () => {
   };
   return (
     <PaperProvider theme={theme}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="tasks/[id]"
+          options={{ headerTitle: "Task Item" }}
+        />
       </Stack>
     </PaperProvider>
   );

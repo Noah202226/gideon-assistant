@@ -1,3 +1,4 @@
+import { Link, router } from "expo-router";
 import React from "react";
 import {
   SafeAreaView,
@@ -6,19 +7,26 @@ import {
   StyleSheet,
   Text,
   StatusBar,
+  Pressable,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { List } from "react-native-paper";
 
 const Item = ({ title, description, id }) => (
-  <TouchableOpacity key={id} onPress={() => console.log(title)}>
+  <Pressable
+    onPress={() => {
+      router.push({
+        pathname: "/tasks/[id]",
+        params: { id, title, description },
+      });
+    }}
+  >
     <List.Item
-      key={id}
       title={title}
       description={description}
-      left={(props) => <List.Icon {...props} icon="folder" />}
+      right={(props) => <List.Icon {...props} icon="folder" />}
     />
-  </TouchableOpacity>
+  </Pressable>
 );
 
 const ScheduleList = ({ list }) => {
@@ -29,8 +37,9 @@ const ScheduleList = ({ list }) => {
         renderItem={({ item }) => (
           <Item
             title={item.taskName}
-            description={item.description}
+            description={`${item.description} = ${item.state}`}
             key={item.id}
+            id={item.id}
           />
         )}
         keyExtractor={(item) => item.id}

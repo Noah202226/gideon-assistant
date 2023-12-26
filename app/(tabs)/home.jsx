@@ -8,7 +8,13 @@ import ScheduleList from "../(components)/ScheduleList";
 import AddTaskFAB from "../(components)/AddTaskFAB";
 
 import { db } from "../firebaseConfig";
-import { addDoc, collection, doc, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+} from "firebase/firestore";
 import {
   ActivityIndicator,
   Button,
@@ -17,12 +23,14 @@ import {
   Text,
   TextInput,
 } from "react-native-paper";
+import { StatusBar } from "expo-status-bar";
 
 const home = () => {
   const [isGettingTasks, setIsGettingTasks] = React.useState(true);
   const [visible, setVisible] = React.useState(false);
 
   const [newTaskName, setNewTaskName] = React.useState("");
+  const [isAddingTask, setIsAddingTask] = React.useState(false);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -30,7 +38,13 @@ const home = () => {
 
   const [taskList, setTaskList] = React.useState([]);
 
+  const [filteredList, setFilteredList] = React.useState([]);
+
+  const filterTask = (filterBy) => {
+    return taskList.filter((task) => task.state == filterBy);
+  };
   const addTask = () => {
+    setIsAddingTask(true);
     addDoc(collection(db, "tasks"), {
       taskName: newTaskName,
       description: "New Added Task.",
@@ -38,7 +52,9 @@ const home = () => {
     })
       .then(() => {
         console.log("task added");
+        setIsAddingTask(false);
         setVisible(false);
+        setNewTaskName("");
       })
       .catch((e) => {
         console.log(e);
@@ -60,8 +76,13 @@ const home = () => {
       setIsGettingTasks(false);
     });
   }, []);
+
+  React.useEffect(() => {
+    setFilteredList(filterTask());
+  }, [taskList]);
   return (
     <View style={{ flex: 1 }}>
+      <StatusBar style="auto" />
       <Portal>
         <Modal
           visible={visible}
@@ -75,13 +96,17 @@ const home = () => {
             onChangeText={(e) => setNewTaskName(e)}
           />
 
-          <Button mode="contained-tonal" onPress={addTask}>
+          <Button
+            mode="contained-tonal"
+            onPress={addTask}
+            loading={isAddingTask}
+          >
             Add Task
           </Button>
         </Modal>
       </Portal>
       <SearchStack />
-      <SegmentedButtonTask />
+      <SegmentedButtonTask taskList={filteredList} filterTask={filterTask} />
 
       {isGettingTasks ? (
         <View
