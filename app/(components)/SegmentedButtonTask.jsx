@@ -2,19 +2,14 @@ import * as React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { SegmentedButtons } from "react-native-paper";
 
-const SegmentedButtonTask = ({ taskList, filterTask }) => {
+const SegmentedButtonTask = ({
+  originalList,
+  taskList,
+  filterTask,
+  showAllTask,
+}) => {
   const [value, setValue] = React.useState("");
 
-  const [allTask, setAllTask] = React.useState([]);
-  const [filteredTask, setFilteredTask] = React.useState([]);
-
-  React.useEffect(() => {
-    setAllTask(taskList);
-  }, [taskList]);
-
-  React.useEffect(() => {
-    setFilteredTask(allTask);
-  }, [filteredTask]);
   return (
     <SafeAreaView style={styles.container}>
       <SegmentedButtons
@@ -24,29 +19,28 @@ const SegmentedButtonTask = ({ taskList, filterTask }) => {
         buttons={[
           {
             value: "main",
-            label: `Main (${filteredTask.length})`,
+            label: `Main (${
+              originalList.filter((task) => task.state == "ongoing").length
+            })`,
             showSelectedCheck: true,
-            onPress: () => {
-              setFilteredTask(taskList.filter((task) => task));
-            },
+            onPress: () => showAllTask(),
           },
           {
             value: "finished",
             label: `Done (${
-              filteredTask.filter((task) => task.state == "finished").length
+              originalList.filter((task) => task.state == "finished").length
             })`,
+            labelStyle: { color: "red", fontSize: 16 },
             showSelectedCheck: true,
             onPress: () => filterTask("finished"),
           },
           {
             value: "cancel",
             label: `Canceled (${
-              filteredTask.filter((task) => task.state == "canceled").length
+              originalList.filter((task) => task.state == "canceled").length
             })`,
             showSelectedCheck: true,
-            onPress: () => {
-              setFilteredTask(taskList.filter((task) => task == "canceled"));
-            },
+            onPress: () => filterTask("canceled"),
           },
         ]}
       />

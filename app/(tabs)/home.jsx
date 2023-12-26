@@ -38,17 +38,23 @@ const home = () => {
 
   const [taskList, setTaskList] = React.useState([]);
 
-  const [filteredList, setFilteredList] = React.useState([]);
+  const [list, setList] = React.useState(taskList);
 
   const filterTask = (filterBy) => {
-    return taskList.filter((task) => task.state == filterBy);
+    const filtered = taskList.filter((item) => item.state === filterBy);
+    setList(filtered);
   };
+  const showAllTask = () => {
+    const filtered = taskList.filter((item) => item.state === "ongoing");
+    setList(filtered);
+  };
+
   const addTask = () => {
     setIsAddingTask(true);
     addDoc(collection(db, "tasks"), {
       taskName: newTaskName,
       description: "New Added Task.",
-      state: "Ongoing",
+      state: "ongoing",
     })
       .then(() => {
         console.log("task added");
@@ -73,13 +79,15 @@ const home = () => {
       );
 
       setTaskList(data);
+
       setIsGettingTasks(false);
     });
   }, []);
 
   React.useEffect(() => {
-    setFilteredList(filterTask());
+    showAllTask();
   }, [taskList]);
+
   return (
     <View style={{ flex: 1 }}>
       <StatusBar style="auto" />
@@ -105,8 +113,13 @@ const home = () => {
           </Button>
         </Modal>
       </Portal>
-      <SearchStack />
-      <SegmentedButtonTask taskList={filteredList} filterTask={filterTask} />
+
+      <SegmentedButtonTask
+        originalList={taskList}
+        taskList={list}
+        filterTask={filterTask}
+        showAllTask={showAllTask}
+      />
 
       {isGettingTasks ? (
         <View
@@ -120,7 +133,7 @@ const home = () => {
           <ActivityIndicator animating={true} size={"large"} color="grey" />
         </View>
       ) : (
-        <ScheduleList list={taskList} />
+        <ScheduleList list={list} />
       )}
 
       <AddTaskFAB showModal={showModal} />

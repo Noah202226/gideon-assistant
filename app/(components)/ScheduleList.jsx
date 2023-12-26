@@ -12,12 +12,12 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { List } from "react-native-paper";
 
-const Item = ({ title, description, id }) => (
+const Item = ({ title, description, id, state }) => (
   <Pressable
     onPress={() => {
       router.push({
         pathname: "/tasks/[id]",
-        params: { id, title, description },
+        params: { id, title, description, state },
       });
     }}
   >
@@ -39,6 +39,7 @@ const ScheduleList = ({ list }) => {
             title={item.taskName}
             description={`${item.description} = ${item.state}`}
             key={item.id}
+            state={item.state}
             id={item.id}
           />
         )}
