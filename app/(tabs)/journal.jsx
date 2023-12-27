@@ -14,6 +14,13 @@ import {
 import AddJournalFAB from "../(components)/journal/AddJournalFAB";
 import { Button, Modal, Portal, TextInput } from "react-native-paper";
 
+import {
+  ALERT_TYPE,
+  AlertNotificationRoot,
+  Dialog,
+  Toast,
+} from "react-native-alert-notification";
+
 const journal = () => {
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
@@ -40,6 +47,13 @@ const journal = () => {
     })
       .then(() => {
         console.log("journal added");
+        Toast.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: "Journal saved.",
+          textBody:
+            "New journal added. You can see it to make more improvements.",
+          autoClose: 3000,
+        });
         setIsAddingJournal(false);
         setVisible(false);
         setNewJournalTitle("");
@@ -68,51 +82,53 @@ const journal = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Portal>
-        <Modal
-          style={{ flex: 1 }}
-          visible={visible}
-          onDismiss={hideModal}
-          contentContainerStyle={containerStyle}
-        >
-          <Text>New Task</Text>
-          <TextInput
-            mode="outlined"
-            value={newJournalTitle}
-            onChangeText={(e) => setNewJournalTitle(e)}
-            placeholder="Journal Title..."
-          />
-
-          <TextInput
-            mode="outlined"
-            value={newJournalMotivation}
-            onChangeText={(e) => setNewJournalMotivation(e)}
-            placeholder="Note..."
-          />
-          <DateTime
-            date={date}
-            setDate={setDate}
-            mode={mode}
-            setMode={setMode}
-            show={show}
-            setShow={setShow}
-          />
-          <Button
-            mode="contained-tonal"
-            onPress={addJournal}
-            loading={isAddingJournal}
+    <AlertNotificationRoot>
+      <View style={styles.container}>
+        <Portal>
+          <Modal
+            style={{ flex: 1 }}
+            visible={visible}
+            onDismiss={hideModal}
+            contentContainerStyle={containerStyle}
           >
-            Add Task
-          </Button>
-        </Modal>
-      </Portal>
+            <Text>New Task</Text>
+            <TextInput
+              mode="outlined"
+              value={newJournalTitle}
+              onChangeText={(e) => setNewJournalTitle(e)}
+              placeholder="Journal Title..."
+            />
 
-      <SearchJournal />
-      <JournalList journals={journals} isGettingJournal={isGettingJournal} />
+            <TextInput
+              mode="outlined"
+              value={newJournalMotivation}
+              onChangeText={(e) => setNewJournalMotivation(e)}
+              placeholder="Note..."
+            />
+            <DateTime
+              date={date}
+              setDate={setDate}
+              mode={mode}
+              setMode={setMode}
+              show={show}
+              setShow={setShow}
+            />
+            <Button
+              mode="contained-tonal"
+              onPress={addJournal}
+              loading={isAddingJournal}
+            >
+              Save Journal
+            </Button>
+          </Modal>
+        </Portal>
 
-      <AddJournalFAB showModal={showModal} />
-    </View>
+        <SearchJournal />
+        <JournalList journals={journals} isGettingJournal={isGettingJournal} />
+
+        <AddJournalFAB showModal={showModal} />
+      </View>
+    </AlertNotificationRoot>
   );
 };
 

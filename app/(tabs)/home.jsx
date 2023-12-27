@@ -2,7 +2,15 @@ import { Image, StyleSheet, View } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Link, Stack } from "expo-router";
 
-import SearchStack from "../(components)/SearchTask";
+import * as SMS from "expo-sms";
+
+import {
+  ALERT_TYPE,
+  AlertNotificationRoot,
+  Dialog,
+  Toast,
+} from "react-native-alert-notification";
+
 import SegmentedButtonTask from "../(components)/SegmentedButtonTask";
 import ScheduleList from "../(components)/ScheduleList";
 import AddTaskFAB from "../(components)/AddTaskFAB";
@@ -26,7 +34,6 @@ import {
   Text,
   TextInput,
 } from "react-native-paper";
-import { StatusBar } from "expo-status-bar";
 
 const home = () => {
   const [isGettingTasks, setIsGettingTasks] = useState(true);
@@ -68,6 +75,15 @@ const home = () => {
     })
       .then(() => {
         console.log("task added");
+        Toast.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: "Task saved.",
+          textBody: "New task added. Start doing it now.",
+          autoClose: 2000,
+          textBodyStyle: {
+            color: "cyan",
+          },
+        });
         setIsAddingTask(false);
         setVisible(false);
         setNewTaskName("");
@@ -99,70 +115,72 @@ const home = () => {
   }, [taskList]);
 
   return (
-    <View style={{ flex: 1 }}>
-      <Portal>
-        <Modal
-          style={{ flex: 1 }}
-          visible={visible}
-          onDismiss={hideModal}
-          contentContainerStyle={containerStyle}
-        >
-          <Text>New Task</Text>
-          <TextInput
-            mode="outlined"
-            value={newTaskName}
-            onChangeText={(e) => setNewTaskName(e)}
-            placeholder="Task Name..."
-          />
-
-          <TextInput
-            mode="outlined"
-            value={newTaskDetail}
-            onChangeText={(e) => setnewTaskDetail(e)}
-            placeholder="Details..."
-          />
-          <DateTime
-            date={date}
-            setDate={setDate}
-            mode={mode}
-            setMode={setMode}
-            show={show}
-            setShow={setShow}
-          />
-          <Button
-            mode="contained-tonal"
-            onPress={addTask}
-            loading={isAddingTask}
+    <AlertNotificationRoot>
+      <View style={{ flex: 1, backgroundColor: "#d0d0d0" }}>
+        <Portal>
+          <Modal
+            style={{ flex: 1 }}
+            visible={visible}
+            onDismiss={hideModal}
+            contentContainerStyle={containerStyle}
           >
-            Add Task
-          </Button>
-        </Modal>
-      </Portal>
+            <Text>New Task</Text>
+            <TextInput
+              mode="outlined"
+              value={newTaskName}
+              onChangeText={(e) => setNewTaskName(e)}
+              placeholder="Task Name..."
+            />
 
-      <SegmentedButtonTask
-        originalList={taskList}
-        taskList={list}
-        filterTask={filterTask}
-        showAllTask={showAllTask}
-      />
+            <TextInput
+              mode="outlined"
+              value={newTaskDetail}
+              onChangeText={(e) => setnewTaskDetail(e)}
+              placeholder="Details..."
+            />
+            <DateTime
+              date={date}
+              setDate={setDate}
+              mode={mode}
+              setMode={setMode}
+              show={show}
+              setShow={setShow}
+            />
+            <Button
+              mode="contained-tonal"
+              onPress={addTask}
+              loading={isAddingTask}
+            >
+              Add Task
+            </Button>
+          </Modal>
+        </Portal>
 
-      {isGettingTasks ? (
-        <View
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <ActivityIndicator animating={true} size={"large"} color="grey" />
-        </View>
-      ) : (
-        <ScheduleList list={list} />
-      )}
+        <SegmentedButtonTask
+          originalList={taskList}
+          taskList={list}
+          filterTask={filterTask}
+          showAllTask={showAllTask}
+        />
 
-      <AddTaskFAB showModal={showModal} />
-    </View>
+        {isGettingTasks ? (
+          <View
+            style={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ActivityIndicator animating={true} size={"large"} color="grey" />
+          </View>
+        ) : (
+          <ScheduleList list={list} />
+        )}
+
+        <AddTaskFAB showModal={showModal} />
+      </View>
+    </AlertNotificationRoot>
   );
 };
 

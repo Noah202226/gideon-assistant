@@ -14,6 +14,7 @@ import { List } from "react-native-paper";
 
 const Item = ({ title, description, id, state }) => (
   <Pressable
+    style={{ backgroundColor: "whitesmoke", marginVertical: 5 }}
     onPress={() => {
       router.push({
         pathname: "/tasks/[id]",

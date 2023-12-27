@@ -19,14 +19,15 @@ const StackLayout = () => {
     <PaperProvider theme={theme}>
       <StatusBar style="dark" />
 
-      <Stack>
-        <Stack.Screen
-          name="(tabs)"
-          options={{ headerShown: false, statusBarColor: "black" }}
-        />
+      <Stack screenOptions={{ statusBarColor: "black" }}>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
           name="tasks/[id]"
           options={{ headerTitle: "Task Item" }}
+        />
+        <Stack.Screen
+          name="journals/[id]"
+          options={{ headerTitle: "Journal Item" }}
         />
       </Stack>
     </PaperProvider>
