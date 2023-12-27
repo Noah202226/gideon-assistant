@@ -1,11 +1,13 @@
 import { Image, StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Stack } from "expo-router";
 
 import SearchStack from "../(components)/SearchTask";
 import SegmentedButtonTask from "../(components)/SegmentedButtonTask";
 import ScheduleList from "../(components)/ScheduleList";
 import AddTaskFAB from "../(components)/AddTaskFAB";
+
+import { DateTime } from "../(components)/DateTime";
 
 import { db } from "../firebaseConfig";
 import {
@@ -14,6 +16,7 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  serverTimestamp,
 } from "firebase/firestore";
 import {
   ActivityIndicator,
@@ -26,19 +29,24 @@ import {
 import { StatusBar } from "expo-status-bar";
 
 const home = () => {
-  const [isGettingTasks, setIsGettingTasks] = React.useState(true);
-  const [visible, setVisible] = React.useState(false);
+  const [isGettingTasks, setIsGettingTasks] = useState(true);
+  const [visible, setVisible] = useState(false);
 
-  const [newTaskName, setNewTaskName] = React.useState("");
-  const [isAddingTask, setIsAddingTask] = React.useState(false);
+  //state for new task
+  const [newTaskName, setNewTaskName] = useState("");
+  const [newTaskDetail, setnewTaskDetail] = useState("");
+  const [isAddingTask, setIsAddingTask] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: "white", padding: 20 };
 
-  const [taskList, setTaskList] = React.useState([]);
+  const [taskList, setTaskList] = useState([]);
 
-  const [list, setList] = React.useState(taskList);
+  const [list, setList] = useState(taskList);
 
   const filterTask = (filterBy) => {
     const filtered = taskList.filter((item) => item.state === filterBy);
@@ -53,8 +61,10 @@ const home = () => {
     setIsAddingTask(true);
     addDoc(collection(db, "tasks"), {
       taskName: newTaskName,
-      description: "New Added Task.",
+      description: newTaskDetail,
       state: "ongoing",
+      dateAdded: serverTimestamp(),
+      deadlLine: date,
     })
       .then(() => {
         console.log("task added");
@@ -68,7 +78,7 @@ const home = () => {
       });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     onSnapshot(collection(db, "tasks"), (snapshot) => {
       const data = [];
       snapshot.docs.forEach((doc) =>
@@ -84,15 +94,15 @@ const home = () => {
     });
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     showAllTask();
   }, [taskList]);
 
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar style="auto" />
       <Portal>
         <Modal
+          style={{ flex: 1 }}
           visible={visible}
           onDismiss={hideModal}
           contentContainerStyle={containerStyle}
@@ -102,8 +112,23 @@ const home = () => {
             mode="outlined"
             value={newTaskName}
             onChangeText={(e) => setNewTaskName(e)}
+            placeholder="Task Name..."
           />
 
+          <TextInput
+            mode="outlined"
+            value={newTaskDetail}
+            onChangeText={(e) => setnewTaskDetail(e)}
+            placeholder="Details..."
+          />
+          <DateTime
+            date={date}
+            setDate={setDate}
+            mode={mode}
+            setMode={setMode}
+            show={show}
+            setShow={setShow}
+          />
           <Button
             mode="contained-tonal"
             onPress={addTask}

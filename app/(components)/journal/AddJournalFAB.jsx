@@ -2,8 +2,8 @@ import * as React from "react";
 import { StyleSheet } from "react-native";
 import { FAB } from "react-native-paper";
 
-const AddTaskFAB = ({ showModal }) => (
-  <FAB icon="bell-plus" style={styles.fab} onPress={showModal} />
+const AddJournalFAB = ({ showModal }) => (
+  <FAB icon="pen-plus" style={styles.fab} onPress={showModal} />
 );
 
 const styles = StyleSheet.create({
@@ -15,4 +15,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddTaskFAB;
+export default AddJournalFAB;

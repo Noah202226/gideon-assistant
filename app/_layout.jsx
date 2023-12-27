@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
   MD3LightTheme as DefaultTheme,
@@ -16,8 +17,13 @@ const StackLayout = () => {
   };
   return (
     <PaperProvider theme={theme}>
+      <StatusBar style="dark" />
+
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(tabs)"
+          options={{ headerShown: false, statusBarColor: "black" }}
+        />
         <Stack.Screen
           name="tasks/[id]"
           options={{ headerTitle: "Task Item" }}
