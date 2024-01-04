@@ -29,6 +29,10 @@ const StackLayout = () => {
           name="journals/[id]"
           options={{ headerTitle: "Journal Item" }}
         />
+        <Stack.Screen
+          name="plans/[id]"
+          options={{ headerTitle: "Plan Item" }}
+        />
       </Stack>
     </PaperProvider>
   );

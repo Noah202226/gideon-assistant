@@ -16,7 +16,7 @@ export default () => {
         options={{
           title: "SCHEDULES",
           tabBarIcon: ({ color, size }) => (
-            <FA name="clipboard-list" color={color} size={size} />
+            <FA name="list" color={color} size={size} />
           ),
         }}
       />
@@ -26,6 +26,9 @@ export default () => {
           title: "PLANNER",
           tabBarIcon: ({ color, size }) => (
             <FA name="calendar-alt" color={color} size={size} />
+          ),
+          headerRight: ({ color, size }) => (
+            <FA name="list" color={color} size={size} />
           ),
         }}
       />

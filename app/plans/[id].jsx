@@ -1,29 +1,27 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import {
-  ALERT_TYPE,
-  AlertNotificationRoot,
-  Toast,
-} from "react-native-alert-notification";
 import { Button } from "react-native-paper";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import {
+  Toast,
+  AlertNotificationRoot,
+  ALERT_TYPE,
+} from "react-native-alert-notification";
 
-const journalItem = () => {
-  const { id, title, description, state } = useLocalSearchParams();
-
+const plansItem = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const deleteJournal = () => {
+  const deletePlan = () => {
     setIsDeleting(true);
-    deleteDoc(doc(db, "journals", id))
+    deleteDoc(doc(db, "planner", id))
       .then(() => {
         Toast.show({
           type: ALERT_TYPE.DANGER,
-          title: "Journal deleted",
+          title: "Task deleted",
           textBody:
-            "Why you deleted a journal that is data that you can improved? The more you do, the more you become happy.",
+            "Why you deleted a task? The more you do, the more you become happy.",
         });
         console.log("task deleted");
         setIsDeleting(false);
@@ -33,17 +31,18 @@ const journalItem = () => {
       })
       .catch((e) => console.log(e));
   };
+  const { id, title, description, state } = useLocalSearchParams();
   return (
     <AlertNotificationRoot>
-      <Text>journalItem - {id}</Text>
+      <Text>plansItem - {id}</Text>
 
-      <Button loading={isDeleting} onPress={deleteJournal}>
+      <Button loading={isDeleting} onPress={deletePlan}>
         Delete Plan
       </Button>
     </AlertNotificationRoot>
   );
 };
 
-export default journalItem;
+export default plansItem;
 
 const styles = StyleSheet.create({});
