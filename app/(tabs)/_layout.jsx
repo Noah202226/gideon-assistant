@@ -8,17 +8,28 @@ export default () => {
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "grey",
         tabBarActiveBackgroundColor: "grey",
-        tabBarStyle: { backgroundColor: "cyan" },
+        tabBarStyle: { backgroundColor: "cyan" }
       }}
     >
       <Tabs.Screen
         name="home"
-        options={{
+        options={({ navigation }) => ({
           title: "SCHEDULES",
           tabBarIcon: ({ color, size }) => (
             <FA name="list" color={color} size={size} />
           ),
-        }}
+          headerRight: ({ color, size }) => (
+            <FA
+              name="user-cog"
+              color={color}
+              size={size}
+              onPress={() => navigation.navigate("settings")}
+            />
+          ),
+          headerRightContainerStyle: {
+            paddingRight: 16 // Adjust the padding as needed
+          }
+        })}
       />
       <Tabs.Screen
         name="plans"
@@ -29,7 +40,7 @@ export default () => {
           ),
           headerRight: ({ color, size }) => (
             <FA name="list" color={color} size={size} />
-          ),
+          )
         }}
       />
       <Tabs.Screen
@@ -38,7 +49,7 @@ export default () => {
           title: "JOURNAL",
           tabBarIcon: ({ color, size }) => (
             <FA name="book" color={color} size={size} />
-          ),
+          )
         }}
       />
     </Tabs>

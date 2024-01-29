@@ -8,12 +8,13 @@ import {
   ALERT_TYPE,
   AlertNotificationRoot,
   Dialog,
-  Toast,
+  Toast
 } from "react-native-alert-notification";
 
 import SegmentedButtonTask from "../(components)/SegmentedButtonTask";
 import ScheduleList from "../(components)/ScheduleList";
 import AddTaskFAB from "../(components)/AddTaskFAB";
+import HorizontalCheckboxes from "../(components)/HorizontalCheckbox";
 
 import { DateTime } from "../(components)/DateTime";
 
@@ -24,7 +25,7 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
-  serverTimestamp,
+  serverTimestamp
 } from "firebase/firestore";
 import {
   ActivityIndicator,
@@ -32,7 +33,7 @@ import {
   Modal,
   Portal,
   Text,
-  TextInput,
+  TextInput
 } from "react-native-paper";
 
 const home = () => {
@@ -71,7 +72,7 @@ const home = () => {
       description: newTaskDetail,
       state: "ongoing",
       dateAdded: serverTimestamp(),
-      deadlLine: date,
+      deadlLine: date
     })
       .then(() => {
         console.log("task added");
@@ -81,12 +82,13 @@ const home = () => {
           textBody: "New task added. Start doing it now.",
           autoClose: 2000,
           textBodyStyle: {
-            color: "cyan",
-          },
+            color: "cyan"
+          }
         });
         setIsAddingTask(false);
         setVisible(false);
         setNewTaskName("");
+        setnewTaskDetail("");
       })
       .catch((e) => {
         console.log(e);
@@ -94,13 +96,33 @@ const home = () => {
       });
   };
 
+  // Checkboxes states
+  const [routines, setRoutines] = useState([
+    { id: "1", label: "Pray and seek guidance" },
+    { id: "2", label: "Exercise atleast 5mins" },
+    { id: "3", label: "Work in your business" },
+    {
+      id: "4",
+      label: "Journal things happen. Give thanks to what we have done."
+    }
+  ]);
+  const [financialStatement, setFinancialStatement] = useState([
+    { id: "1", label: "Pray and seek guidance" },
+    { id: "2", label: "Exercise atleast 5mins" },
+    { id: "3", label: "Work in your business" },
+    {
+      id: "4",
+      label: "Journal things happen. Give thanks to what we have done."
+    }
+  ]);
+
   useEffect(() => {
     onSnapshot(collection(db, "tasks"), (snapshot) => {
       const data = [];
       snapshot.docs.forEach((doc) =>
         data.push({
           id: doc.id,
-          ...doc.data(),
+          ...doc.data()
         })
       );
 
@@ -117,9 +139,10 @@ const home = () => {
   return (
     <AlertNotificationRoot>
       <View style={{ flex: 1, backgroundColor: "#d0d0d0" }}>
+        {/* Add new sched modal */}
         <Portal>
           <Modal
-            style={{ flex: 1 }}
+            style={{ flex: 1, margin: 10 }}
             visible={visible}
             onDismiss={hideModal}
             contentContainerStyle={containerStyle}
@@ -156,6 +179,17 @@ const home = () => {
           </Modal>
         </Portal>
 
+        {/* Checkboxes for routine */}
+        <HorizontalCheckboxes
+          title="Your daily improvement routines"
+          data={routines}
+        />
+
+        <HorizontalCheckboxes
+          title="Financial Statement"
+          data={financialStatement}
+        />
+
         <SegmentedButtonTask
           originalList={taskList}
           taskList={list}
@@ -169,7 +203,7 @@ const home = () => {
               flex: 1,
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "center"
             }}
           >
             <ActivityIndicator animating={true} size={"large"} color="grey" />

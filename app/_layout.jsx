@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
   MD3LightTheme as DefaultTheme,
-  PaperProvider,
+  PaperProvider
 } from "react-native-paper";
 
 const StackLayout = () => {
@@ -12,8 +12,8 @@ const StackLayout = () => {
     colors: {
       ...DefaultTheme.colors,
       primary: "tomato",
-      secondary: "yellow",
-    },
+      secondary: "yellow"
+    }
   };
   return (
     <PaperProvider theme={theme}>
@@ -33,6 +33,7 @@ const StackLayout = () => {
           name="plans/[id]"
           options={{ headerTitle: "Plan Item" }}
         />
+        <Stack.Screen name="settings" options={{ headerTitle: "Settings" }} />
       </Stack>
     </PaperProvider>
   );
