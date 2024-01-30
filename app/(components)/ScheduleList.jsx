@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Text,
   StatusBar,
-  Pressable,
+  Pressable
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { List } from "react-native-paper";
@@ -18,7 +18,7 @@ const Item = ({ title, description, id, state }) => (
     onPress={() => {
       router.push({
         pathname: "/tasks/[id]",
-        params: { id, title, description, state },
+        params: { id, title, description, state }
       });
     }}
   >
@@ -53,16 +53,17 @@ const ScheduleList = ({ list }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10
   },
   item: {
     backgroundColor: "#09c2f0",
     padding: 20,
     marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 16
   },
   title: {
-    fontSize: 150,
-  },
+    fontSize: 150
+  }
 });
 
 export default ScheduleList;

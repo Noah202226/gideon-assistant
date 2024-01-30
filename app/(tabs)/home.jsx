@@ -107,12 +107,25 @@ const home = () => {
     }
   ]);
   const [financialStatement, setFinancialStatement] = useState([
-    { id: "1", label: "Pray and seek guidance" },
-    { id: "2", label: "Exercise atleast 5mins" },
-    { id: "3", label: "Work in your business" },
+    { id: "1", label: "Church Services Needs" },
+    { id: "2", label: "Motor(2190/month) + Maintenances" },
+    {
+      id: "3",
+      label: "Meralco/PrimeWater/Converge"
+    },
     {
       id: "4",
-      label: "Journal things happen. Give thanks to what we have done."
+      label: "Personal Hygiene(Skincare, Healthy Body, Office/Studio"
+    },
+    { id: "5", label: "Medina(6k)" },
+    { id: "6", label: "RJ(1k)" },
+    {
+      id: "7",
+      label: "Papa's and Kaycee's life"
+    },
+    {
+      id: "8",
+      label: "Your life, Experience life!"
     }
   ]);
 
@@ -183,10 +196,11 @@ const home = () => {
         <HorizontalCheckboxes
           title="Your daily improvement routines"
           data={routines}
+          listingStyles={true}
         />
 
         <HorizontalCheckboxes
-          title="Financial Statement"
+          title="Financial Motivation"
           data={financialStatement}
         />
 

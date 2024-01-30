@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SafeAreaView, FlatList, Text } from "react-native";
 import CheckboxItem from "../(components)/Checkbox";
 
-const HorizontalCheckboxList = ({ title, data }) => {
+const HorizontalCheckboxList = ({ title, data, listingStyles }) => {
   const [selectedItems, setSelectedItems] = useState([]);
 
   const handleToggleCheckbox = (index) => {
@@ -27,7 +27,8 @@ const HorizontalCheckboxList = ({ title, data }) => {
         padding: 16,
         backgroundColor: "#f0f0f0",
         borderRadius: 8,
-        margin: 8
+        margin: 8,
+        height: listingStyles === true ? 123 : 200
       }}
     >
       {title && (
@@ -39,7 +40,7 @@ const HorizontalCheckboxList = ({ title, data }) => {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        horizontal
+        horizontal={listingStyles === true ? true : false}
       />
     </SafeAreaView>
   );
