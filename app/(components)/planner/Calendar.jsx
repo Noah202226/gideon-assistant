@@ -7,14 +7,14 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedStartDate: moment(),
+      selectedStartDate: moment()
     };
     this.onDateChange = this.onDateChange.bind(this);
   }
 
   onDateChange(date) {
     this.setState({
-      selectedStartDate: date,
+      selectedStartDate: date
     });
   }
 
@@ -29,10 +29,20 @@ export default class App extends Component {
           scrollable={true}
           customDatesStyles={this.props.plans}
           minDate={moment()}
+          textStyle={{ color: "#61dafb" }}
         />
 
         <View>
-          <Text>SELECTED DATE:{moment(startDate).format("MM/DD/YY")}</Text>
+          <Text
+            style={{
+              fontSize: 16,
+              color: "#61dafb",
+              textAlign: "right",
+              marginRight: 10
+            }}
+          >
+            SELECTED DATE:{moment(startDate).format("MM/DD/YY")}
+          </Text>
         </View>
       </View>
     );
@@ -41,8 +51,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "cyan",
-    marginTop: 1,
-  },
+    backgroundColor: "#282c34",
+    marginTop: 1
+  }
 });

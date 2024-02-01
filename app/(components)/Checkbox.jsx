@@ -22,7 +22,7 @@ const CheckboxExample = ({ label, onToggle }) => {
         marginRight: 8 // Adjust the margin between checkboxes
       }}
       textStyle={{
-        fontSize: 16,
+        fontSize: 14,
         color: "#333" // Adjust the text color
       }}
       checkedIcon="check-square-o"

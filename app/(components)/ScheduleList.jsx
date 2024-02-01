@@ -1,4 +1,5 @@
 import { Link, router } from "expo-router";
+import moment from "moment";
 import React from "react";
 import {
   SafeAreaView,
@@ -38,7 +39,8 @@ const ScheduleList = ({ list }) => {
         renderItem={({ item }) => (
           <Item
             title={item.taskName}
-            description={`${item.description} = ${item.state}`}
+            description={`${item.description} 
+${moment(item.deadlLine.toDate()).format("MMMM DD YYYY")}`}
             key={item.id}
             state={item.state}
             id={item.id}

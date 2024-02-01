@@ -6,7 +6,7 @@ import {
   List,
   Modal,
   Portal,
-  TextInput,
+  TextInput
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ import {
   addDoc,
   collection,
   onSnapshot,
-  serverTimestamp,
+  serverTimestamp
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import moment from "moment";
@@ -22,7 +22,7 @@ import { DateTime } from "../(components)/DateTime";
 import {
   AlertNotificationRoot,
   Toast,
-  ALERT_TYPE,
+  ALERT_TYPE
 } from "react-native-alert-notification";
 import { router } from "expo-router";
 
@@ -32,7 +32,7 @@ const Item = ({ title, description, id, dateAdded }) => (
     onPress={() => {
       router.push({
         pathname: "/plans/[id]",
-        params: { id },
+        params: { id }
       });
       console.log(id);
     }}
@@ -71,7 +71,7 @@ const plans = () => {
       planDesc: newPlanDesc,
       dateAdded: serverTimestamp(),
       date: newPlanDate,
-      textStyle: "green",
+      textStyle: "green"
     })
       .then(() => {
         console.log("Plan added");
@@ -79,7 +79,7 @@ const plans = () => {
           type: ALERT_TYPE.SUCCESS,
           title: "Plan saved.",
           textBody: "New plan added. You can see it to make more improvements.",
-          autoClose: 3000,
+          autoClose: 3000
         });
         setIsAddingPlan(false);
         setVisible(false);
@@ -108,7 +108,7 @@ const plans = () => {
           date: moment(jsDate).format("YYYY-MM-DD"),
           textStyle: { color: doc.data().textStyle, fontWeight: "bold" },
           planName: doc.data().planName,
-          dateAdded: moment(dateAddedDate).format("YYYY-MM-DD"),
+          dateAdded: moment(dateAddedDate).format("YYYY-MM-DD")
         });
       });
 
@@ -190,11 +190,13 @@ export default plans;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#282c34",
+    padding: 10
   },
   fab: {
     position: "absolute",
     margin: 16,
     right: 0,
-    bottom: 0,
-  },
+    bottom: 0
+  }
 });

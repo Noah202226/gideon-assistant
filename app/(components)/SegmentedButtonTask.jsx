@@ -6,7 +6,7 @@ const SegmentedButtonTask = ({
   originalList,
   taskList,
   filterTask,
-  showAllTask,
+  showAllTask
 }) => {
   const [value, setValue] = React.useState("");
 
@@ -22,26 +22,28 @@ const SegmentedButtonTask = ({
             label: `Main (${
               originalList.filter((task) => task.state == "ongoing").length
             })`,
+            labelStyle: { color: "white", fontSize: 16 },
             showSelectedCheck: true,
-            onPress: () => showAllTask(),
+            onPress: () => showAllTask()
           },
           {
             value: "finished",
             label: `Done (${
               originalList.filter((task) => task.state == "finished").length
             })`,
-            labelStyle: { color: "red", fontSize: 16 },
+            labelStyle: { color: "white", fontSize: 16 },
             showSelectedCheck: true,
-            onPress: () => filterTask("finished"),
+            onPress: () => filterTask("finished")
           },
           {
             value: "cancel",
             label: `Canceled (${
               originalList.filter((task) => task.state == "canceled").length
             })`,
+            labelStyle: { color: "white", fontSize: 16 },
             showSelectedCheck: true,
-            onPress: () => filterTask("canceled"),
-          },
+            onPress: () => filterTask("canceled")
+          }
         ]}
       />
     </SafeAreaView>
@@ -51,8 +53,8 @@ const SegmentedButtonTask = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    padding: 10,
-  },
+    padding: 10
+  }
 });
 
 export default SegmentedButtonTask;

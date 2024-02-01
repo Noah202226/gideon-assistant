@@ -5,7 +5,7 @@ import {
   Avatar,
   Button,
   Card,
-  Chip,
+  Chip
 } from "react-native-paper";
 import { FlatList } from "react-native-gesture-handler";
 import { router } from "expo-router";
@@ -17,7 +17,7 @@ const Item = ({ journal }) => (
     onPress={() => {
       router.push({
         pathname: "/journals/[id]",
-        params: { id: journal?.id },
+        params: { id: journal?.id }
       });
     }}
   >
@@ -44,7 +44,14 @@ const Item = ({ journal }) => (
 const JournalList = ({ journals, isGettingJournal }) => {
   return (
     <View>
-      <Text style={{ fontSize: 16, margin: 5 }}>
+      <Text
+        style={{
+          fontSize: 18,
+          textAlign: "center",
+          color: "#61dafb",
+          margin: 5
+        }}
+      >
         Journal List ({journals?.length})
       </Text>
 
@@ -54,7 +61,7 @@ const JournalList = ({ journals, isGettingJournal }) => {
           flexDirection: "row",
           alignContent: "center",
           justifyContent: "space-evenly",
-          marginVertical: 10,
+          marginVertical: 10
         }}
       >
         <Chip icon="briefcase" onPress={() => console.log("Pressed")}>

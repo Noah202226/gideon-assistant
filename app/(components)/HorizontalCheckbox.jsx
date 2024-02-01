@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SafeAreaView, FlatList, Text } from "react-native";
 import CheckboxItem from "../(components)/Checkbox";
 
-const HorizontalCheckboxList = ({ title, data, listingStyles }) => {
+const HorizontalCheckboxList = ({ title, data, details, listingStyles }) => {
   const [selectedItems, setSelectedItems] = useState([]);
 
   const handleToggleCheckbox = (index) => {
@@ -28,13 +28,18 @@ const HorizontalCheckboxList = ({ title, data, listingStyles }) => {
         backgroundColor: "#f0f0f0",
         borderRadius: 8,
         margin: 8,
-        height: listingStyles === true ? 123 : 200
+        height: listingStyles === true ? 123 : 190
       }}
     >
       {title && (
-        <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
-          {title} ({checkedCount}/{totalItems})
-        </Text>
+        <>
+          <Text style={{ fontSize: 15, fontWeight: "bold" }}>
+            {title} ({checkedCount}/{totalItems})
+          </Text>
+          <Text style={{ fontSize: 12, color: "coral", fontStyle: "italic" }}>
+            {details}
+          </Text>
+        </>
       )}
       <FlatList
         data={data}

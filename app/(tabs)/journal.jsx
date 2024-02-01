@@ -9,7 +9,7 @@ import {
   addDoc,
   collection,
   onSnapshot,
-  serverTimestamp,
+  serverTimestamp
 } from "firebase/firestore";
 import AddJournalFAB from "../(components)/journal/AddJournalFAB";
 import { Button, Modal, Portal, TextInput } from "react-native-paper";
@@ -18,7 +18,7 @@ import {
   ALERT_TYPE,
   AlertNotificationRoot,
   Dialog,
-  Toast,
+  Toast
 } from "react-native-alert-notification";
 
 const journal = () => {
@@ -43,7 +43,7 @@ const journal = () => {
       journalTitle: newJournalTitle,
       note: newJournalMotivation,
       dateAdded: serverTimestamp(),
-      motivation: "Your better life!",
+      motivation: "Your better life!"
     })
       .then(() => {
         console.log("journal added");
@@ -52,7 +52,7 @@ const journal = () => {
           title: "Journal saved.",
           textBody:
             "New journal added. You can see it to make more improvements.",
-          autoClose: 3000,
+          autoClose: 3000
         });
         setIsAddingJournal(false);
         setVisible(false);
@@ -71,7 +71,7 @@ const journal = () => {
       snapshot.docs.forEach((doc) =>
         data.push({
           id: doc.id,
-          ...doc.data(),
+          ...doc.data()
         })
       );
 
@@ -138,9 +138,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    backgroundColor: "#282c34"
   },
   title: {
     fontSize: 22,
-    fontWeight: "bold",
-  },
+    fontWeight: "bold"
+  }
 });
