@@ -1,13 +1,13 @@
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-import { useState } from "react";
 import { Button, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export const DateTime = ({ date, setDate, mode, setMode, show, setShow }) => {
   const onChange = (event, selectedDate) => {
+    console.log(selectedDate);
     const currentDate = selectedDate;
-    setShow(false);
     setDate(currentDate);
+    setShow(false);
   };
 
   const showMode = (currentMode) => {
@@ -30,7 +30,7 @@ export const DateTime = ({ date, setDate, mode, setMode, show, setShow }) => {
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "lightgrey",
-        marginVertical: 10,
+        marginVertical: 10
       }}
     >
       <Text style={{ marginVertical: 5, fontWeight: "bold" }}>
@@ -56,7 +56,7 @@ export const DateTime = ({ date, setDate, mode, setMode, show, setShow }) => {
         Select Time...
       </Button>
       <Text style={{ marginVertical: 5, fontWeight: "bold" }}>
-        Selected: {date.toLocaleString()}
+        Selected: {date?.toLocaleString()}
       </Text>
       {show && (
         <RNDateTimePicker

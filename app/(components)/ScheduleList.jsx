@@ -40,7 +40,7 @@ const ScheduleList = ({ list }) => {
           <Item
             title={item.taskName}
             description={`${item.description} 
-${moment(item.deadlLine.toDate()).format("MMMM DD YYYY")}`}
+${moment(item.deadlLine?.toDate()).format("MMMM DD YYYY")}`}
             key={item.id}
             state={item.state}
             id={item.id}

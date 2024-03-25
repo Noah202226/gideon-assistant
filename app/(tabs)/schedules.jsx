@@ -130,6 +130,7 @@ const schedules = () => {
     minute: "numeric",
     second: "numeric"
   }); // You can customize the format as needed
+
   return (
     <AlertNotificationRoot>
       <View style={{ flex: 1, backgroundColor: "#282c34" }}>
