@@ -24,11 +24,11 @@ const HorizontalCheckboxList = ({ title, data, details, listingStyles }) => {
   return (
     <SafeAreaView
       style={{
-        padding: 16,
+        padding: 8,
         backgroundColor: "#f0f0f0",
         borderRadius: 8,
         margin: 8,
-        height: listingStyles === true ? 123 : 190
+        height: listingStyles === true ? 100 : 180
       }}
     >
       {title && (

@@ -38,8 +38,9 @@ const Item = ({ title, description, id, dateAdded }) => (
     }}
   >
     <List.Item
+      style={{}}
       title={title}
-      description={<Text>{description}</Text>}
+      description={<Text style={{color: 'white'}}>{description}</Text>}
       right={(props) => <List.Icon {...props} icon="folder" />}
     />
     <Text style={{ fontStyle: "italic", textAlign: "right" }}>
@@ -190,7 +191,7 @@ export default plans;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#282c34",
+    backgroundColor: "white",
     padding: 10
   },
   fab: {

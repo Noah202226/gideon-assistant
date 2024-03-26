@@ -46,7 +46,8 @@ const home = () => {
   ]);
   const [personalDev, setPersonalDev] = useState([
     { id: "1", label: "Get real friends, socialize." },
-    { id: "2", label: "Health, More energy" }
+    { id: "2", label: "Health, More energy" },
+    { id: "3", label: "More money, More things you can do." },
   ]);
 
   useEffect(() => {
@@ -58,10 +59,10 @@ const home = () => {
   }, []);
 
   const formattedDateTime = currentDateTime.toLocaleString("en-US", {
-    weekday: "long",
     year: "2-digit",
     month: "short",
     day: "2-digit",
+    weekday: "long",
     hour: "2-digit",
     minute: "numeric",
     second: "numeric"
@@ -80,13 +81,14 @@ const home = () => {
           style={{
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#282c34"
+            backgroundColor: "#282c34",
+            padding: 5
           }}
         >
-          <Text style={{ fontSize: 21, color: "#61dafb" }}>
+          <Text style={{ fontSize: 26, color: "#61dafb" }}>
             {formattedDateTime}
           </Text>
-          <Text style={{ fontSize: 16, color: "#61dafb" }}>
+          <Text style={{ fontSize: 12, color: "#61dafb" }}>
             Time is the most precious asset we all have!
           </Text>
         </View>
